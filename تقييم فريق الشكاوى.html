@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تقييم فريق الشكاوى</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b1e;--card:#15153a;--tx:#fff;--mut:#a9a9d6;--a:#ff3d81;--b:#00e5ff;--c:#a3ff12;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f3f1ff;--card:#fff;--tx:#14143a;--mut:#5a5a8a}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f1ff;--card:#fff;--tx:#14143a;--mut:#5a5a8a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Tahoma,sans-serif;min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,#ff3d8155,transparent 40%),radial-gradient(circle at 85% 30%,#00e5ff44,transparent 40%),radial-gradient(circle at 50% 95%,#a3ff1233,transparent 45%);z-index:-1;animation:float 10s ease-in-out infinite alternate}
+@keyframes float{to{transform:scale(1.15) translateY(-20px)}}
+.wrap{max-width:1000px;margin:auto;padding:24px 16px 60px}
+h1{font-size:clamp(26px,6vw,44px);font-weight:900;text-align:center;margin:10px 0 4px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{text-align:center;color:var(--mut);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{position:relative;background:var(--card);border-radius:24px;padding:24px;cursor:pointer;border:2px solid transparent;overflow:hidden;transition:transform .25s,box-shadow .25s;animation:pop .6s both}
+.card:nth-child(2){animation-delay:.12s}.card:nth-child(3){animation-delay:.24s}.card:nth-child(4){animation-delay:.36s}
+@keyframes pop{from{opacity:0;transform:translateY(40px) scale(.9)}}
+.card:hover{transform:translateY(-8px) scale(1.02)}
+.card:active{transform:scale(.97)}
+.card .glow{position:absolute;inset:-2px;border-radius:24px;opacity:.9;z-index:0;filter:blur(0);background:var(--g);opacity:.12}
+.card>*{position:relative;z-index:1}
+.av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:900;color:#fff;background:var(--g);box-shadow:0 0 25px var(--s)}
+.card h2{margin:12px 0 4px;font-size:22px}
+.badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:13px;font-weight:700;color:#000;background:var(--s)}
+.m{margin-top:14px}.m .l{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:4px}
+.bar{height:10px;border-radius:9px;background:#ffffff18;overflow:hidden;margin-bottom:3px}
+.bar i{display:block;height:100%;width:0;border-radius:9px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.old{background:#8888aa}.new{background:var(--g)}
+.hint{margin-top:14px;font-size:13px;color:var(--mut);text-align:center}
+.legend{display:flex;gap:18px;justify-content:center;margin:0 0 18px;font-size:14px;color:var(--mut)}
+.legend b{display:inline-block;width:12px;height:12px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.page{display:none;animation:in .5s both}.page.on{display:block}
+@keyframes in{from{opacity:0;transform:translateX(-40px)}}
+.back{border:0;border-radius:99px;padding:10px 20px;font:700 15px Cairo;background:var(--card);color:var(--tx);cursor:pointer;margin-bottom:16px;transition:transform .2s}
+.back:hover{transform:translateX(6px)}
+.head{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.head h1{margin:0;text-align:right}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--card);border-radius:18px;padding:16px;text-align:center}
+.stat .n{font-size:34px;font-weight:900;color:var(--s)}.stat span{color:var(--mut);font-size:13px}
+.prob{background:var(--card);border-radius:20px;padding:18px;margin-bottom:14px;border-right:6px solid var(--s);animation:in .5s both}
+.prob h3{margin:0 0 8px;color:var(--s)}.prob p{margin:6px 0;line-height:1.8}
+.prob .sol{background:#ffffff0f;border-radius:12px;padding:10px 12px;margin-top:8px}
+.good{text-align:center;padding:40px 16px;background:var(--card);border-radius:24px}
+.good .big{font-size:70px;animation:bounce 1.2s infinite}
+@keyframes bounce{50%{transform:translateY(-14px) rotate(8deg)}}
+.snd{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;border:0;border-radius:50%;width:42px;height:42px;background:var(--card);color:var(--tx);font-size:18px;cursor:pointer;z-index:9}
+</style>
+</head>
+<body>
+<button class="snd" id="snd" aria-label="الصوت">🔊</button>
+<div class="wrap">
+<div id="home" class="page on">
+  <h1>تقييم فريق الشكاوى</h1>
+  <div class="sub">مقارنة أول 7 أيام من الشهر ده بتاني 7 أيام من نفس الشهر — اضغط على اسم الموظف</div>
+  <div class="legend"><span><b style="background:#8888aa"></b>أول 7 أيام</span><span><b style="background:linear-gradient(90deg,var(--a),var(--b))"></b>تاني 7 أيام</span></div>
+  <div class="grid" id="grid"></div>
+</div>
+<div id="detail" class="page"></div>
+</div>
+<script>
+/* الأرقام دي نسب الأخطاء (%) — عدّلها بالأرقام الحقيقية من هنا */
+const T=[
+{id:'ahmed',name:'أحمد صلاح',ch:'أ',g:'linear-gradient(135deg,#ff3d81,#ff8a00)',s:'#ff5c8a',
+ calls:[25,5],sheet:[38,25],fu:[3,1],
+ probs:[
+ {t:'عدم التركيز الكافي في الـ Follow Up',s:'عمل قائمة يومية بالشكاوى المفتوحة ومراجعتها 3 مرات في الوردية (بداية ومنتصف ونهاية)، وعدم قفل أي شكوى إلا بعد تأكيد العميل إن المشكلة اتحلت.'},
+ {t:'عدم التركيز الكافي في الواتساب',s:'تخصيص أوقات ثابتة للرد على الواتساب، وتفعيل التنبيهات، واستخدام ردود جاهزة للحالات المتكررة لتوفير الوقت، مع عدم ترك أي رسالة بدون رد أكتر من 5 دقايق.'},
+ {t:'عدم عمل Follow Up سريع مع العملاء',s:'الالتزام بمهلة محددة: تواصل أول خلال 15 دقيقة من استلام الشكوى، ومتابعة تانية خلال ساعتين، وتسجيل وقت كل تواصل في الشيت.'}]},
+{id:'walid',name:'وليد السمرى',ch:'و',g:'linear-gradient(135deg,#00e5ff,#3d5afe)',s:'#2fe6ff',
+ calls:[4,0],sheet:[12,8],fu:[3,3],
+ probs:[
+ {t:'عدم التركيز الكافي في الواتساب',s:'تقسيم المحادثات حسب الأولوية (عاجل / عادي)، وتخصيص 10 دقايق كل ساعة لمراجعة الرسائل الجديدة، واستخدام وسوم للمحادثات المفتوحة عشان ما يضيعش أي عميل.'}]},
+{id:'salah',name:'صلاح محمود',ch:'ص',g:'linear-gradient(135deg,#a3ff12,#00c853)',s:'#b5ff3c',
+ calls:[0,0],sheet:[20,4],fu:[5,1],probs:[]},
+{id:'tech',tech:true,name:'المشاكل التقنية',ch:'🛠',g:'linear-gradient(135deg,#b44dff,#ff3d81)',s:'#c77dff',
+ probs:[
+ {t:'الإنترنت بطيء',s:'قياس سرعة الإنترنت وقت الذروة وتسجيل مرات الانقطاع، وتبليغ قسم الـ IT أو مزود الخدمة بالأرقام، وتخصيص خط احتياطي (Backup) لقسم الشكاوى، وفصل أجهزة القسم عن باقي أجهزة المطعم لتقليل الضغط على الشبكة.'},
+ {t:'مشكلة في Avaya: صوت وسط المكالمة والعميل مش سامعني لمدة 10 ثواني',s:'أول حاجة تتعمل وقت المشكلة: تبلغ العميل بهدوء إن فيه مشكلة في الصوت وتطلب منه يستنى أو تتصل بيه تاني. بعدها تسجل وقت وتاريخ كل حالة وتبلغ الـ IT عشان يفحصوا السماعة والكابل وإعدادات الشبكة (Jitter / Packet Loss) وتحديث برنامج Avaya، وتجربة سماعة أو جهاز تاني لمعرفة هل المشكلة من الجهاز ولا من السيستم.'}]}
+];
+const $=s=>document.querySelector(s);
+let on=true,ctx;
+function click(f=520){if(!on)return;try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(f*1.8,ctx.currentTime+.12);g.gain.setValueAtTime(.18,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.2)}catch(e){}}
+$('#snd').onclick=()=>{on=!on;$('#snd').textContent=on?'🔊':'🔇';click()};
+function metric(l,[o,n],g){return `<div class="m"><div class="l"><span>${l}</span><span>${o}% ← <b style="color:var(--tx)">${n}%</b></span></div><div class="bar"><i class="old" data-w="${o}"></i></div><div class="bar"><i class="new" data-w="${n}"></i></div></div>`}
+function anim(root){requestAnimationFrame(()=>setTimeout(()=>root.querySelectorAll('i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%'),60))}
+function count(el,to){let v=0;const st=to/30;const t=setInterval(()=>{v+=st;if(v>=to){v=to;clearInterval(t)}el.textContent=Math.round(v)+'%'},25)}
+function home(){const g=$('#grid');g.innerHTML=T.map(p=>`<div class="card" data-id="${p.id}" style="--g:${p.g};--s:${p.s}"><div class="glow"></div><div class="av">${p.ch}</div><h2>${p.name}</h2><span class="badge">${p.probs.length?p.probs.length+' ملاحظات':'أداء ممتاز ⭐'}</span>${p.tech?'':metric('أخطاء المكالمات',p.calls)+metric('أخطاء الفولو أب',p.fu)}<div class="hint">اضغط لفتح التفاصيل ←</div></div>`).join('');
+ g.querySelectorAll('.card').forEach(c=>c.onclick=()=>{click(600);show(c.dataset.id)});anim(g)}
+function show(id){const p=T.find(x=>x.id===id);const d=$('#detail');
+ const imp=(a)=>Math.round((a[0]-a[1])/a[0]*100);
+ d.innerHTML=`<button class="back">→ رجوع</button><div class="head" style="--g:${p.g};--s:${p.s}"><div class="av">${p.ch}</div><h1>${p.name}</h1></div>
+ ${p.tech?'':`<div class="stats" style="--s:${p.s}"><div class="stat"><div class="n" data-c="${p.calls[1]}">0%</div><span>أخطاء المكالمات في تاني 7 أيام (كانت ${p.calls[0]}% في أول 7)</span></div><div class="stat"><div class="n" data-c="${p.fu[1]}">0%</div><span>أخطاء الفولو أب في تاني 7 أيام (كانت ${p.fu[0]}% في أول 7)</span></div></div>`}
+ ${p.probs.length?p.probs.map((x,i)=>`<div class="prob" style="--s:${p.s};animation-delay:${i*.15}s"><h3>⚠️ ${x.t}</h3>${p.tech?'':`<p><b>الحل المقترح:</b></p><div class="sol">✅ ${x.s}</div>`}</div>`).join(''):`<div class="good" style="--s:${p.s}"><div class="big">🏆</div><h2>لا توجد مشاكل</h2><p>أداء ثابت وممتاز، وتحسن واضح في الأخطاء بنسبة ${imp(p.fu)}% في الفولو أب. استمر!</p></div>`}`;
+ $('#home').classList.remove('on');d.classList.add('on');scrollTo({top:0,behavior:'smooth'});
+ d.querySelectorAll('[data-c]').forEach(e=>count(e,+e.dataset.c));
+ d.querySelector('.back').onclick=()=>{click(420);d.classList.remove('on');$('#home').classList.add('on');home()}}
+home();
+</script>
+</body>
+</html>
